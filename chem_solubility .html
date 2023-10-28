@@ -1,0 +1,186 @@
+<style>
+	.label{font-weight:bold; font-family:arial; font-size:18px}
+	/*.input{font-family:arial; font-size:11px; border: 1px solid black;}*/
+
+	table{}
+	td{font-family:arial; font-size:12px;}
+	.td{border-bottom: 1px solid blue;  font-size:21px; padding-left:15px; padding-top:8px; padding-bottom:8px; cursor:pointer;}
+	input{fong-family:arial; font-size:16px;}
+	/*.text{width:60px; border:0px solid black;}*/
+	.but{background-color:#cccccc; border:1px solid black; font-size:12; font-weight:bold; height:21px; cursor:hand;}
+
+</style>
+
+<body>
+
+<table cellspacing="0" cellpadding="0" border="0" align="right">
+<tr valign="middle">
+
+    <td width="100px">
+		<span class="label" style="color:red;">Wrong</span>&nbsp;
+		<span class="label" style="color:red;" id='box_wrong'>0</span>
+	</td>
+    <td width="100px">
+		<span class="label" style="color:green;">Right</span>&nbsp;
+		<span class="label" style="color:green;" id='box_right'>0</span>
+	</td>
+	<td width="220px" align="left">
+		<span class="label" id="timekeeper" style="font-family:arial; color:blue; padding-right:10px;">aaa</span>
+		
+	</td>
+    <td width="90px">
+		<input style="width:53px; background-color:yellow;"  class="but" onclick="get_four();" type="button" value="START">
+	</td>	
+</tr>
+</table>
+
+<br><br>
+
+<table align="center" cellspacing="0" cellpadding="0" border="0">
+<tr>
+    <td valign="top" align="left" width="250" id="the_word" style="border-right:1px solid blue; padding-top:8px; font-weight:bold; padding-right:40px; font-family:arial; color:blue; font-size:21px;"></td>
+    <td width="20px">&nbsp;&nbsp;</td>
+	<td width="600">
+		<table id="all_answers" width="100%" cellspacing="0" cellpadding="0" border="0">
+		<tr>
+		    <td class="td" id="td1" onclick="check_it('td1')">Always soluble</td>
+		</tr>
+		<tr>
+		    <td class="td" id="td2" onclick="check_it('td2')">Insoluble except with (always soluable) and with Ca, Sr, Ba</td>
+		</tr>
+		<tr>
+		    <td class="td" id="td3" onclick="check_it('td3')">Insoluble except with (always soluable)</td>
+		</tr>
+		<tr>
+		    <td class="td" id="td4" onclick="check_it('td4')">Soluble except with Sr, Ba, Pb, Ag, Ca</td>
+		</tr>
+		<tr>
+		    <td class="td" id="td5" onclick="check_it('td5')" style="border-bottom:0px solid red;">Soluble except with Ag, Hg2, Pb</td>
+		</tr>		
+	    </table>	
+	</td>
+	<td valign="top" align="left" width="250" id="the_word_desc" style="border-right:0px solid blue; padding-top:4px; font-weight:bold; padding-right:40px; font-family:arial; color:blue; font-size:16px;"></td>
+</tr>
+</table>
+
+<br>
+
+<div id="right_answer" style="display:none"></div>
+
+
+<script>
+	
+function get_four()
+	{
+		document.all.td1.style.backgroundColor = "white"
+ 		document.all.td2.style.backgroundColor = "white"
+  		document.all.td3.style.backgroundColor = "white"
+  		document.all.td4.style.backgroundColor = "white"
+	    document.all.td5.style.backgroundColor = "white"
+
+        f_show() 
+	
+	}			
+	
+function f_show()
+	{	
+		//alert("f_show")
+		//gets randow word
+		var x = Math.ceil((Math.random()*or.length)-1)		
+		//alert("number" + x)
+					
+		show_it = or[x]
+		show_trans = or_s[x]
+						
+				document.all.the_word.innerHTML = show_it
+				document.all.right_answer.innerHTML = show_trans
+	}	
+	
+		
+	function get_number()
+		{
+			y = Math.ceil(Math.random() * 5)
+			return y
+			
+		}		
+
+	function check_it(what)
+		{
+			//alert("check_it")
+            //alert(what)
+			
+			if(document.all.right_answer.innerHTML == document.getElementById(what).innerHTML)
+				{
+
+					document.all.box_right.innerHTML = Number(document.all.box_right.innerHTML) + 1
+					get_four()
+				}
+			else
+				{
+					document.all.box_wrong.innerHTML = Number(document.all.box_wrong.innerHTML) + 1
+					document.all(what).style.backgroundColor = "pink"
+
+				}
+
+		}
+
+
+	timeit = 0
+	timer_text = ''
+	function timer()
+		{
+			timeit = timeit + 1
+			var t=setTimeout("timer2()",1000);
+			
+			if (timeit < 60) {timer_text = timeit}
+			else {timer_text = Math.floor(timeit / 60) + ":" + (timeit % 60)}
+			
+			document.getElementById("timekeeper").innerText = timer_text
+		}
+	
+	function timer2()
+		{
+			timer()
+		}
+	
+	timer()
+
+
+or = new Array
+or_s = new Array
+
+ 
+or[0] = "NO3"
+or[1] = "Li"
+or[2] = "S"
+or[3] = "PO4"
+or[4] = "SO4"
+or[5] = "NH4"
+or[6] = "Na"
+or[7] = "Cl"
+or[8] = "C2H3O2"
+or[9] = "Br"
+or[10] = "I"
+or[11] = "CO3"
+or[12] = "OH"
+or[13] = "K"
+
+or_s[0] = "Always soluble"
+or_s[1] = "Always soluble"
+or_s[2] = "Insoluble except with (always soluable) and with Ca, Sr, Ba"
+or_s[3] = "Insoluble except with (always soluable)"
+or_s[4] = "Soluble except with Sr, Ba, Pb, Ag, Ca"
+or_s[5] = "Always soluble"
+or_s[6] = "Always soluble"
+or_s[7] = "Soluble except with Ag, Hg2, Pb"
+or_s[8] = "Always soluble"
+or_s[9] = "Soluble except with Ag, Hg2, Pb"
+or_s[10] = "Soluble except with Ag, Hg2, Pb"
+or_s[11] = "Insoluble except with (always soluable)"
+or_s[12] = "Insoluble except with (always soluable) and with Ca, Sr, Ba"
+or_s[13] = "Always soluble"
+
+	
+</script>
+
+</body>
